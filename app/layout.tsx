@@ -3,9 +3,9 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Nexus Material Intelligence | SIH 2026',
-  description: 'Explainable material harmonization prototype for SIH 2026 Problem Statement 26099.',
-  generator: 'SIH 2026 Prototype',
+  title: 'Nexus Material Intelligence',
+  description: 'Explainable material harmonization workspace for enterprise material data.',
+  generator: 'Nexus Material Intelligence',
 }
 
 export const viewport: Viewport = {
