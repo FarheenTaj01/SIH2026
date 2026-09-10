@@ -63,9 +63,10 @@ export function MaterialDashboard({ data }: { data: MaterialData }) {
       if (stored) setDecisions(JSON.parse(stored))
       else {
         const seed: Record<string, Decision> = {}
-        if (data.pairs[0]) seed[keyOf(data.pairs[0])] = { status: 'Approved', reviewer: 'Authorized Reviewer', reason: 'Aligned material family, grade and primary specification.', timestamp: '2026-09-10T10:30:00.000Z' }
-        if (data.pairs[1]) seed[keyOf(data.pairs[1])] = { status: 'Needs Review', reviewer: 'Authorized Reviewer', reason: 'Candidate requires confirmation of specification compatibility.', timestamp: '2026-09-10T11:15:00.000Z' }
-        if (data.pairs[2]) seed[keyOf(data.pairs[2])] = { status: 'Deferred', reviewer: 'Authorized Reviewer', reason: 'Deferred until the source specification is clarified.', timestamp: '2026-09-10T12:05:00.000Z' }
+        if (data.pairs[0]) seed[keyOf(data.pairs[0])] = { status: 'Approved', reviewer: 'Authorized Reviewer', reason: 'Equivalent material — matching category, grade and primary specification.', timestamp: '2026-09-10T10:30:00.000Z' }
+        if (data.pairs[1]) seed[keyOf(data.pairs[1])] = { status: 'Approved', reviewer: 'Materials Review Team', reason: 'Equivalent material — aligned material family, UOM and dimensional specification.', timestamp: '2026-09-10T11:15:00.000Z' }
+        if (data.pairs[2]) seed[keyOf(data.pairs[2])] = { status: 'Approved', reviewer: 'Authorized Reviewer', reason: 'Equivalent material — matching grade, category and specification profile.', timestamp: '2026-09-10T12:05:00.000Z' }
+        if (data.pairs[3]) seed[keyOf(data.pairs[3])] = { status: 'Deferred', reviewer: 'Materials Review Team', reason: 'Deferred until the source specification is clarified.', timestamp: '2026-09-10T13:20:00.000Z' }
         setDecisions(seed)
         localStorage.setItem('nexus-review-decisions', JSON.stringify(seed))
       }
