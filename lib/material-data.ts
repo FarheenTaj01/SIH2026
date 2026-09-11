@@ -35,7 +35,7 @@ function mapRow(row: Record<string, unknown>, index: number): Material {
   const keys = Object.keys(row)
   const value = (field: keyof Material) => { const found = keys.find((key) => fieldAliases[field].includes(canonical(key))); return found ? row[found] : '' }
   const text = (field: keyof Material, fallback = '') => String(value(field) ?? fallback).trim()
-  return { Record_ID: Number(value('Record_ID')) || index + 1, CPSE: text('CPSE', 'Not specified'), Material_Code: text('Material_Code', `MAT-${index + 1}`), Material_Description: text('Material_Description', text('Material_Code', `Material ${index + 1}`)), Category: text('Category', 'Not specified'), Material_Type: text('Material_Type'), Material: text('Material'), Grade: text('Grade'), Primary_Spec: text('Primary_Spec'), Secondary_Spec: text('Secondary_Spec'), UOM: text('UOM'), Unit_Price_INR: Number(value('Unit_Price_INR')) || 0, Annual_Quantity: Number(value('Annual_Quantity')) || 0, Procurement_Year: Number(value('Procurement_Year')) || 0 }
+  return { Record_ID: Number(value('Record_ID')) || index + 1, CPSE: text('CPSE', 'Not available'), Material_Code: text('Material_Code', `MAT-${index + 1}`), Material_Description: text('Material_Description', text('Material_Code', `Material ${index + 1}`)), Category: text('Category', 'Not available'), Material_Type: text('Material_Type', 'Not available'), Material: text('Material', 'Not available'), Grade: text('Grade', 'Not available'), Primary_Spec: text('Primary_Spec', 'Not available'), Secondary_Spec: text('Secondary_Spec', 'Not available'), UOM: text('UOM', 'Not available'), Unit_Price_INR: Number(value('Unit_Price_INR')) || 0, Annual_Quantity: Number(value('Annual_Quantity')) || 0, Procurement_Year: Number(value('Procurement_Year')) || 0 }
 }
 export function parseRows(rows: Record<string, unknown>[], filename = 'Uploaded dataset'): MaterialData {
   const materials = rows.map(mapRow).filter((m) => m.Material_Description || m.Material_Code)
@@ -69,7 +69,7 @@ export function buildMaterialData(materials: Material[], groundTruth: GroundTrut
   const pairs = materials
     .flatMap((a, index) => {
       return materials.slice(index + 1)
-        .filter((b) => a.CPSE !== b.CPSE || new Set(materials.map((m) => m.CPSE)).size === 1)
+        .filter((b) => a.CPSE !== b.CPSE)
         .map((b) => scorePair(a, b))
     })
     .filter((pair) => pair.score >= 35)
